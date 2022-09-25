@@ -31,6 +31,7 @@ public class JogoDaForca {
 		}
 		 
 	}
+	
 	public void iniciar() {
 		Random sorteio = new Random();
 		int n = sorteio.nextInt(palavras.size());
