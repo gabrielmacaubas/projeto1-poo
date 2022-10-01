@@ -4,15 +4,23 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+class customException extends Exception {
+	public customException(String mensagem) {
+		super(mensagem);
+	}
+}
+
 public class JogoDaForca {
 
 	private ArrayList<String> palavras = new ArrayList<>(); // lista de palavras lidas do arquivo
 	private ArrayList<String> dicas = new ArrayList<>(); // lista de dicas lidas do arquivo
+	public ArrayList<String> letrasTentadas = new ArrayList<>();
 	private String dica=""; // dica da palavra sorteada
 	private String[] letras; // letras da palavra sorteada
 	private int acertos; // contador de acertos
 	private int penalidade; // penalidade atual
 	public String arquivo;
+	
 	
 	public JogoDaForca(String nomearquivo) throws Exception {
 		try {
@@ -21,9 +29,9 @@ public class JogoDaForca {
 
 			while(sc.hasNextLine()) {
 				String[] tokens = sc.nextLine().split(";");
+
 				this.palavras.add(tokens[0]);
-				this.dicas.add(tokens[1]);
-				
+				this.dicas.add(tokens[1]);			
 				
 			}
 		} catch(FileNotFoundException e) {
@@ -35,6 +43,7 @@ public class JogoDaForca {
 	public void iniciar() {
 		Random sorteio = new Random();
 		int n = sorteio.nextInt(palavras.size());
+
 		this.letras = palavras.get(n).split("");
 		this.dica = dicas.get(n);
 	}
@@ -52,12 +61,10 @@ public class JogoDaForca {
 
         try {
             FileWriter outputfile = new FileWriter(file, true);
-
 			String novaPalavra = "\n" + palavra.toUpperCase() + ";";
 
             outputfile.append(novaPalavra);
             outputfile.append(novaDica);
-
             outputfile.flush();
             outputfile.close();
         } 
@@ -65,4 +72,66 @@ public class JogoDaForca {
             e.printStackTrace();
         }
     }
+
+	public ArrayList<Integer> getPosicoes(String letra) throws Exception {
+		letra = letra.toUpperCase();
+		
+		if (letrasTentadas.contains(letra)) {
+			this.penalidade++;
+
+			throw new customException("Esta letra ja foi tentada");
+
+		} else {
+			this.letrasTentadas.add(letra);
+
+			ArrayList<Integer> posicoes = new ArrayList<>();
+			boolean acertou = false;
+
+			for (int i = 0; i < this.getTamanho(); i++) {
+				if (this.letras[i].equals(letra)) {
+					acertou = true;
+					posicoes.add(i);
+					this.acertos++;
+
+				}
+			}
+
+			if (!acertou) {
+				this.penalidade++;
+			}
+
+			return posicoes;
+		}
+
+		
+	}
+
+	public int getAcertos(){
+		return this.acertos;
+	}
+
+	public int getPenalidade(){
+		return this.penalidade;
+	}
+
+    public String getResultado(){
+		if (this.acertos == this.getTamanho()) {
+			return "Você venceu";
+
+		} else if(this.acertos < this.getTamanho()) {
+			return "Você foi enforcado";
+
+		} else {
+			return "jogo erm andamento";
+		}
+	}
+
+	public boolean terminou() {
+		if (this.acertos == this.getTamanho() || this.penalidade == 6) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

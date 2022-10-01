@@ -2,7 +2,7 @@
  * IFPB - TSI - POO - PROJETO1
  * Prof. Fausto Ayres
  * 
- * Aplicação console para testar a classe JogoDaForca
+ * AplicaÃ§Ã£o console para testar a classe JogoDaForca
  * 
  */
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class AplicacaoConsole {
 	public static void main(String[] args) {
 		try {
 			Scanner teclado = new Scanner (System.in);
-			String[] penalidades = {"perna1", "perna2", "braço1", "braço2", "tronco", "cabeça"};
+			String[] penalidades = {"perna1", "perna2", "braÃ§o1", "braÃ§o2", "tronco", "cabeÃ§a"};
 			String letra;
 			String[] letrasAdivinhadas; 	//letras adivinhadas
 			ArrayList<Integer> posicoes;	//posicoes adivinhadas
@@ -23,7 +23,7 @@ public class AplicacaoConsole {
 			System.out.println("dica da palavra=" + jogo.getDica());
 			System.out.println("tamanho da palavra=" + jogo.getTamanho());
 			letrasAdivinhadas = new String[jogo.getTamanho()];	
-			Arrays.fill(letrasAdivinhadas, "");
+			Arrays.fill(letrasAdivinhadas, "*");
 
 			do {
 				System.out.println("\ndigite uma letra da palavra ");
@@ -42,7 +42,7 @@ public class AplicacaoConsole {
 					}
 				}
 				catch(Exception e) {
-					System.out.println(e.getMessage());
+					System.out.println(e.getMessage() + "- penalidade=" + jogo.getPenalidade() + ", retirar " + penalidades[jogo.getPenalidade()-1]);
 				}
 			}
 			while(!jogo.terminou());
