@@ -1,7 +1,10 @@
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 class customException extends Exception {
@@ -24,9 +27,12 @@ public class JogoDaForca {
 	
 	public JogoDaForca(String nomearquivo) throws Exception {
 		try {
-			this.arquivo = nomearquivo;
-			Scanner sc = new Scanner(new File(arquivo));
-
+			
+			Path path = Paths.get(nomearquivo);
+			this.arquivo = Paths.get(nomearquivo).toAbsolutePath().toString();
+			System.out.println(this.arquivo.replace("\\", "\\\\"));
+			Scanner sc = new Scanner(new File(this.arquivo.replace("\\", "\\\\")));
+		    
 			while(sc.hasNextLine()) {
 				String[] tokens = sc.nextLine().split(";");
 
