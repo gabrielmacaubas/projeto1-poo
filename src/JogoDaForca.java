@@ -1,8 +1,12 @@
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -25,13 +29,14 @@ public class JogoDaForca {
 	public String arquivo;
 	
 	
-	public JogoDaForca(String nomearquivo) throws Exception {
+	public JogoDaForca(String nomearquivo) throws IOException {
 		try {
 			
 			Path path = Paths.get(nomearquivo);
 			this.arquivo = Paths.get(nomearquivo).toAbsolutePath().toString();
 			System.out.println(this.arquivo.replace("\\", "\\\\"));
 			Scanner sc = new Scanner(new File(this.arquivo.replace("\\", "\\\\")));
+			
 		    
 			while(sc.hasNextLine()) {
 				String[] tokens = sc.nextLine().split(";");
@@ -43,7 +48,7 @@ public class JogoDaForca {
 		} catch(FileNotFoundException e) {
 			throw new FileNotFoundException();
 		}
-		 
+		
 	}
 	
 	public void iniciar() {
@@ -61,7 +66,8 @@ public class JogoDaForca {
 	public int getTamanho() {
 		return this.letras.length;
 	}
-
+ 
+	/*
 	public void gravarDados(String palavra, String novaDica) throws Exception {
         File file = new File(this.arquivo);
 
@@ -78,11 +84,25 @@ public class JogoDaForca {
             e.printStackTrace();
         }
     }
+    */
 
 	public ArrayList<Integer> getPosicoes(String letra) throws Exception {
+		
 		letra = letra.toUpperCase();
 		
-		if (letrasTentadas.contains(letra)) {
+		if (letra.length() == 0) {
+			this.penalidade++;
+			
+			throw new customException("Vazio, digite uma letra");
+		}
+		
+		else if (letra.length() > 1) {
+			this.penalidade++;
+			
+			throw new customException("Digite apenas uma letra");
+		}
+		
+		else if (letrasTentadas.contains(letra)) {
 			this.penalidade++;
 
 			throw new customException("Esta letra ja foi tentada");
