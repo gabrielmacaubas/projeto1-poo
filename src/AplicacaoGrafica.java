@@ -178,7 +178,7 @@ public class AplicacaoGrafica {
 								label_3.getHeight(), Image.SCALE_DEFAULT)
 						);
 						label_4.setForeground(Color.RED);
-						label_4.setText("<html>" + e.getMessage() + "<br/> - penalidade=" + jogo.getPenalidade() + ", retirar " + penalidades[jogo.getPenalidade()-1]+"</html>");
+						label_4.setText(e.getMessage());
 						
 					}
 				//} else {

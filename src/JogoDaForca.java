@@ -34,7 +34,6 @@ public class JogoDaForca {
 			
 			Path path = Paths.get(nomearquivo);
 			this.arquivo = Paths.get(nomearquivo).toAbsolutePath().toString();
-			System.out.println(this.arquivo.replace("\\", "\\\\"));
 			Scanner sc = new Scanner(new File(this.arquivo.replace("\\", "\\\\")));
 			
 		    
