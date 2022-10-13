@@ -118,6 +118,10 @@ public class AplicacaoGrafica {
 					Arrays.fill(letrasAdivinhadas, "*");
 					button.setEnabled(true);
 					label_6.setText("");
+					
+					String x = Arrays.toString(letrasAdivinhadas);
+					
+					label_5.setText(x);
 				}
 				catch(Exception e) {
 					System.out.println(e.getMessage());

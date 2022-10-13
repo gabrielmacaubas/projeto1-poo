@@ -34,6 +34,7 @@ public class JogoDaForca {
 			
 			Path path = Paths.get(nomearquivo);
 			this.arquivo = Paths.get(nomearquivo).toAbsolutePath().toString();
+			System.out.println(this.arquivo.replace("\\", "\\\\"));
 			Scanner sc = new Scanner(new File(this.arquivo.replace("\\", "\\\\")));
 			
 		    
@@ -65,39 +66,17 @@ public class JogoDaForca {
 	public int getTamanho() {
 		return this.letras.length;
 	}
- 
-	/*
-	public void gravarDados(String palavra, String novaDica) throws Exception {
-        File file = new File(this.arquivo);
 
-        try {
-            FileWriter outputfile = new FileWriter(file, true);
-			String novaPalavra = "\n" + palavra.toUpperCase() + ";";
-
-            outputfile.append(novaPalavra);
-            outputfile.append(novaDica);
-            outputfile.flush();
-            outputfile.close();
-        } 
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    */
-
+	
 	public ArrayList<Integer> getPosicoes(String letra) throws Exception {
 		
 		letra = letra.toUpperCase();
 		
-		if (letra.length() == 0) {
-			this.penalidade++;
-			
+		if (letra.length() == 0) {	
 			throw new customException("Vazio, digite uma letra");
 		}
 		
-		else if (letra.length() > 1) {
-			this.penalidade++;
-			
+		else if (letra.length() > 1) {		
 			throw new customException("Digite apenas uma letra");
 		}
 		
