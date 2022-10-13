@@ -66,7 +66,6 @@ public class JogoDaForca {
 	public int getTamanho() {
 		return this.letras.length;
 	}
-
 	
 	public ArrayList<Integer> getPosicoes(String letra) throws Exception {
 		
