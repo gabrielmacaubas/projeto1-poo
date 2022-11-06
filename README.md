@@ -3,4 +3,4 @@
  
  Integrantes: Gabriel Macaúbas Melo, Louise Fernandes Caetano e Samuel de Morais Lima.
 
-![Screenshot](projeto.png)
+![Screenshot](Screenshot.png)
